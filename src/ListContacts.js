@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 class ListContacts extends Component {
     static propTypes = {
         contacts: PropTypes.array.isRequired,
-        onRemoveContact: PropTypes.func.isRequired,
-        onNavigate: PropTypes.func.isRequired
+        onRemoveContact: PropTypes.func.isRequired
     }
 
     state = {
@@ -18,13 +18,13 @@ class ListContacts extends Component {
     }
     render() {
         const { query } = this.state
-        const { contacts, onRemoveContact, onNavigate } = this.props
+        const { contacts, onRemoveContact } = this.props
         const showingContacts = query === '' ? contacts : contacts.filter(c => c.name.toLowerCase().includes(query.toLowerCase()))
 
         return <div className='list-contacts'>
             <div className='list-contacts-top'>
                 <input className='search-contacts' type='text' value={query} onChange={(event) => this.onQueryChange(event.target.value)} />
-                <a href='#create' className='add-contact' onClick={onNavigate}>Add Contact</a>
+                <Link to='/create' className='add-contact'>Add Contact</Link>
             </div>
             {contacts.length !== showingContacts.length && (
                 <div className='showing-contacts'>
